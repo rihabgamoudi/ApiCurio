@@ -20,7 +20,7 @@ export class CategoryService {
 
   async findAll() {
     return await this.categoryResposity.findAndCount()
-  } 
+  }  
 
   async findOneById(id: number):Promise<object>{
     let  category= await this.categoryResposity.findOne({where:{id:id}})
@@ -37,14 +37,49 @@ export class CategoryService {
       const categoryPreload = await this.categoryResposity.preload({
         id: +id, 
         ...UpdateCategoryDto,
-        updatedBy: userId,
+        updatedBy: userId, 
       });  
   
       return this.categoryResposity.save(categoryPreload);
    
     }   
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+    async remove(id: string) {
+      return await this.categoryResposity.delete(id);
+    }
+
+    async removeMultiple(toDelete: number[]) {
+      
+     
+      let resultDelete: boolean = null
+      let resultDisable: boolean = null
+      const allIntegers = toDelete.every(item => Number.isInteger(item));
+  if (!allIntegers) {
+      console.log('Invalid data in toDelete array');
+      // Handle the error appropriately
+      return;
   }
-}
+      if (toDelete.length != 0) {
+        if (await this.categoryResposity.delete(toDelete)) {
+          resultDelete = true
+        } else
+          resultDelete = false
+          console.log("categoryResposity",this.categoryResposity)
+      }
+    //   if (toDisable.length != 0) {
+    //     if (await this.accessoireResposity.update(toDisable, { updatedBy: idUser, updateAt: new Date(), isActive: false })) {
+    //       resultDisable = true
+    //     } else
+    //       resultDisable = false
+    //   }
+    //   if (((toDelete.length != 0 && resultDelete == true) || (toDelete.length == 0 && resultDelete == null)) &&
+    //     ((toDisable.length != 0 && resultDisable == true) || (toDisable.length == 0 && resultDisable == null))) {
+    //     return true
+    //   } else 
+    //     return false
+    // }
+    return true
+    }
+  
+  }
+

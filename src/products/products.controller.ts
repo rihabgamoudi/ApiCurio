@@ -13,7 +13,7 @@ export class ProductsController {
   create(@Body() createProductDto: CreateProductDto) {
     console.log(createProductDto)
     return this.productsService.create(createProductDto);
-  }
+  } 
 
   @Get('products-list')
   findAll() {
@@ -34,6 +34,11 @@ export class ProductsController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.productsService.remove(+id);
+    return this.productsService.remove(id);
   }
+  @Post('delete-multiple')
+  removeMultiple(@Body('') toDelete: number[]) {
+ 
+    return this.productsService.removeMultiple(toDelete);
+  } 
 }

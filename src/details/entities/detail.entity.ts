@@ -19,17 +19,15 @@ export class ProductDetail {
     updateAt:Date;
     @Column('integer',{name:"createby",nullable:true})
     createBy:number;
-    @Column('integer',{name:"createBy",nullable:true})
-    updateBy:number;
+    @Column('integer',{name:"updatedBy",nullable:true})
+    updatedBy:number;
     @Column('boolean',{name:"active",nullable:true})
     isActive:boolean
     @Column('text',{name:"color", nullable:true})
     color:string
     @Column('integer',{name:"quantity", nullable:true})
-    quantity:string
-    // relation
-    // @OneToMany(() => Color, (productColor: Color) => productColor.deatilId,{cascade:true})
-    // productColor: Color[];
+    quantity:number
+   
 
     
     @ManyToOne(() => Accessoire, (accessoire: Accessoire) => accessoire.id)
@@ -50,12 +48,13 @@ export class ProductDetail {
     unitsId: number | null;
 
     
-    @OneToMany(() => Price, (productPrice: Price) => productPrice.deatilId,{cascade:true})
-    productPrice: Price[];
+    @ManyToOne(() => Price, (price: Price) => price.id)
+    @JoinColumn({ name: "priceId" })
+    priceId: number | null;
 
-
-    @OneToMany(() => Tva, (productTva: Tva) => productTva.deatilId,{cascade:true})
-    productTva: Tva[];
+    @ManyToOne(() => Tva, (tva: Tva) => tva.id)
+    @JoinColumn({ name: "TVAId" })
+    TVAId: number | null;
 
    
 
@@ -63,7 +62,7 @@ export class ProductDetail {
     @JoinColumn({ name: "productId" })
     productId: number | null;
 
-
+ 
 
 @BeforeInsert()
 CreateATDate(): void{

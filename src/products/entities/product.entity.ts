@@ -1,4 +1,10 @@
+import { Category } from "src/category/entities/category.entity";
+import { CommandDetail } from "src/command-detail/entities/command-detail.entity";
+import { Commande } from "src/commande/entities/commande.entity";
 import { ProductDetail } from "src/details/entities/detail.entity";
+import { Picture } from "src/pictures/entities/picture.entity";
+import { DeviceDetail } from "src/sale/device-detail/entities/device-detail.entity";
+import { Device } from "src/sale/device/entities/device.entity";
 import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -19,17 +25,39 @@ export class Product {
     updatedBy:number;
     @Column('boolean',{name:"active",nullable:true})
     isActive:boolean
-    // realation
-    @OneToMany(() => ProductDetail, (productDeatil: ProductDetail) => productDeatil.productId,{cascade:true})
-    productDeatil: ProductDetail[];
+    @Column("double precision", { name: "priceHorsTax", nullable: true })
+    priceHorsTax: number | null;
+    @Column("double precision", { name: "priceTTC", nullable: true })
+    priceTTC: number | null;
+   
+    @OneToMany(() => ProductDetail, (productDetail: ProductDetail) => productDetail.productId,{cascade:true})
+    productDetail: ProductDetail[];
 
+
+    @OneToMany(() => CommandDetail, ( CommandDetails:CommandDetail) =>  CommandDetails.productId,{cascade:true})
+    CommandDetails: CommandDetail[];
+
+    @OneToMany(() => DeviceDetail, ( deviceDetails:DeviceDetail) =>  deviceDetails.productId,{cascade:true})
+    deviceDetails: DeviceDetail[];
+
+     
+
+   
+
+    @OneToMany(() => Picture, ( pictures:Picture) =>  pictures.productId,{cascade:true})
+    pictures: Picture[];
+  
+  
 
 @BeforeInsert()
 CreateATDate(): void{
 this.createAt=new Date()
+
 }
+
 @BeforeUpdate()
 updateATDate() :void{
     this.updateAt= new Date()
 }
+
 }

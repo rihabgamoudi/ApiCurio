@@ -17,6 +17,17 @@ import { ContactModule } from './contact/contact.module';
 import { CategoryModule } from './category/category.module';
 
 import { PayementMethodModule } from './payement-method/payement-method.module';
+import { TransactionModule } from './transaction/transaction.module';
+import { AuthModule } from './auth/auth.module';
+import { CostModule } from './cost/cost.module';
+import { CustomerModule } from './customer/customer.module';
+import { CommandeModule } from './commande/commande.module';
+import { SaleModule } from './sale/sale.module';
+import { CommandDetailModule } from './command-detail/command-detail.module';
+import { PicturesModule } from './pictures/pictures.module';
+import { DeviceModule } from './sale/device/device.module';
+import { DeviceDetailModule } from './sale/device-detail/device-detail.module';
+
 
 @Module({
   imports: [
@@ -36,9 +47,11 @@ import { PayementMethodModule } from './payement-method/payement-method.module';
           
       }),
     }),
-    ConfigModule.forRoot(),TvaModule,SwaggerModule, AccessoireModule, UserModule, PriceModule, MarksModule, DetailsModule,  ProductsModule, UnitsMeasuresModule, AdressModule, ContactModule, CategoryModule, PayementMethodModule
+    ConfigModule.forRoot(),TvaModule,SwaggerModule, AccessoireModule, UserModule, PriceModule, MarksModule, DetailsModule,  ProductsModule, UnitsMeasuresModule, AdressModule, ContactModule, CategoryModule, PayementMethodModule, TransactionModule, AuthModule, CostModule, CustomerModule, CommandeModule, SaleModule, CommandDetailModule,PicturesModule,DeviceModule,DeviceDetailModule,
   ],
+
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+ 

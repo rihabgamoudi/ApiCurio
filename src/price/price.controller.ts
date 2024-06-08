@@ -34,6 +34,12 @@ export class PriceController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.priceService.remove(+id);
+    return this.priceService.remove(id);
   }
+  @Post('delete-multiple')
+  removeMultiple(@Body('') toDelete: number[]) {
+ 
+    return this.priceService.removeMultiple(toDelete);
+  } 
+
 }

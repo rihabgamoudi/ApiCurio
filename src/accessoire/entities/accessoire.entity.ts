@@ -1,5 +1,7 @@
+
+import { Commande } from "src/commande/entities/commande.entity";
 import { ProductDetail } from "src/details/entities/detail.entity";
-import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Accessoire {
@@ -28,7 +30,10 @@ export class Accessoire {
      //relation
 
      @ManyToMany(() => ProductDetail, (productDetail: ProductDetail) => productDetail.accessoireId,{cascade:true})
-     productDetail: ProductDetail[]; 
+     productDetail: ProductDetail[];
+      
+    //  @OneToMany(() => Commande, (commande: Commande) => commande.accessoireId,{cascade:true})
+    //  commande: Commande[];
      
 @BeforeInsert()
 CreateATDate(): void{

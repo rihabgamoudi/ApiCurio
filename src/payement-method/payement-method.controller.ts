@@ -26,12 +26,19 @@ export class PayementMethodController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePayementMethodDto: UpdatePayementMethodDto) {
-    return this.payementMethodService.update(+id, updatePayementMethodDto);
-  }
+  async updatePayment(@Param('id') id: number, @Body() updatePayementMethodDto: UpdatePayementMethodDto) {
+   // Remplacez cela par la méthode pour obtenir l'ID de l'utilisateur authentifié
+   let userId=1
+    return this.payementMethodService.update(id,userId, updatePayementMethodDto,);
+  } 
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.payementMethodService.remove(+id);
+    return this.payementMethodService.remove(id);
   }
+  @Post('delete-multiple')
+  removeMultiple(@Body('') toDelete: number[]) {
+ 
+    return this.payementMethodService.removeMultiple(toDelete);
+  } 
 }

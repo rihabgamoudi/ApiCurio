@@ -33,6 +33,11 @@ export class UnitsMeasuresController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.unitsMeasuresService.remove(+id);
+    return this.unitsMeasuresService.remove(id);
   }
+  @Post('delete-multiple')
+  removeMultiple(@Body('') toDelete: number[]) {
+ 
+    return this.unitsMeasuresService.removeMultiple(toDelete);
+  } 
 }

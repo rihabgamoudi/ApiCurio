@@ -1,5 +1,6 @@
+import { Commande } from "src/commande/entities/commande.entity";
 import { ProductDetail } from "src/details/entities/detail.entity";
-import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class UnitsMeasure {
@@ -26,6 +27,7 @@ export class UnitsMeasure {
      //relation
      @ManyToMany(() => ProductDetail, (productDetail: ProductDetail) => productDetail.unitsId,{cascade:true})
      productDetail: ProductDetail[];
+   
 @BeforeInsert()
 CreateATDate(): void{
 this.createAt=new Date()

@@ -1,5 +1,7 @@
+import { Commande } from "src/commande/entities/commande.entity";
 import { ProductDetail } from "src/details/entities/detail.entity";
-import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "src/products/entities/product.entity";
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Category {
@@ -21,11 +23,17 @@ export class Category {
     @Column('integer',{name:"updatedBy",nullable:true})
     updatedBy:number;
     @Column('boolean',{name:"active",nullable:true})
-    isActive:boolean
+    isActive:boolean 
      //relation
      
      @ManyToMany(() => ProductDetail, (productDetail: ProductDetail) => productDetail.categoryId,{cascade:true})
      productDetail: ProductDetail[]
+      
+    //  @OneToMany(() => Commande, (commande: Commande) => commande.categoryId,{cascade:true})
+    //  commande: Commande[];
+
+    //  @OneToMany(()=>Product,(product:Product)=>product.categoryId)
+    //  products:Product[]
      
 @BeforeInsert()
 CreateATDate(): void{

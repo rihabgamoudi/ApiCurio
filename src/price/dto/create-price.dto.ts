@@ -1,6 +1,6 @@
 export class CreatePriceDto {
     id: number;
-  
+    name: string
     priceExcludingTax: number;
   
     priceTTC: number;

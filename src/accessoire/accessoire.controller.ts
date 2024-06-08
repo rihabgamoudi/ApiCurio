@@ -14,9 +14,9 @@ export class AccessoireController {
   create(@Body() createAccessoireDto: CreateAccessoireDto) {
    
     return this.accessoireService.create(createAccessoireDto);
-  }
+  } 
  
-  @Get('accessoire-list') 
+  @Get('accessory-list') 
   findAll() {
     return this.accessoireService.findAll();
   } 
@@ -36,6 +36,14 @@ export class AccessoireController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.accessoireService.remove(+id);
+    return this.accessoireService.remove(id);
   }
+  
+  @Post('delete-multiple')
+  removeMultiple(@Body('') toDelete: number[]) {
+ 
+    return this.accessoireService.removeMultiple(toDelete);
+  } 
+ 
+  
 }

@@ -1,7 +1,9 @@
 
+import { CommandDetail } from "src/command-detail/entities/command-detail.entity";
+import { Commande } from "src/commande/entities/commande.entity";
 import { ProductDetail } from "src/details/entities/detail.entity";
 import { Price } from "src/price/entities/price.entity";
-import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Tva {
@@ -28,9 +30,11 @@ export class Tva {
     @JoinColumn({ name: "priceId" })
     priceId: number | null;
      
-    @ManyToOne(() => ProductDetail, (productDetail: ProductDetail) => productDetail.id)
-    @JoinColumn({ name: "deatilId" })
-    deatilId: number | null;
+    @ManyToMany(() => ProductDetail, (productDetail: ProductDetail) => productDetail.unitsId,{cascade:true})
+
+    // @OneToMany(() => CommandDetail, (commandDetail: CommandDetail) => commandDetail.tvaId,{cascade:true})
+    // commandDetail: CommandDetail[];
+
 @BeforeInsert()
 CreateATDate(): void{
 this.createAt=new Date()

@@ -7,8 +7,10 @@ import { ApiTags } from '@nestjs/swagger';
 @Controller('user')
 @ApiTags()
 export class UserController {
+ 
   constructor(private readonly userService: UserService) {}
 
+  
   @Post('create')
   create(@Body() createUserDto: CreateUserDto) {
     // return "hello"
@@ -19,15 +21,11 @@ export class UserController {
   findAll() {
     return this.userService.findAll();
   }
-  @Get('login')
-  findUser(@Body('email') email: string,  @Body('password') password: string ) {
-    return this.userService.findUser(email, password);
-  }
-
+ 
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.userService.findOneById(+id);
-  }
+  } 
 
   @Patch(':id')
   async updateUser(@Param('id') id: number, @Body() UpdateUserDto: UpdateUserDto) {
@@ -38,6 +36,11 @@ export class UserController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
-  }
+    return this.userService.remove(id);
+  } 
+  @Post('delete-multiple')
+  removeMultiple(@Body('') toDelete: number[]) {
+ 
+    return this.userService.removeMultiple(toDelete);
+  } 
 }

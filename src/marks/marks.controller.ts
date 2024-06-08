@@ -35,6 +35,13 @@ export class MarksController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.marksService.remove(+id);
+    return this.marksService.remove(id);
   }
+  
+  @Post('delete-multiple')
+  removeMultiple(@Body('') toDelete: number[]) {
+ 
+    return this.marksService.removeMultiple(toDelete);
+  }
+
 }

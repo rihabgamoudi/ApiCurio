@@ -1,5 +1,7 @@
 
+import { Commande } from "src/commande/entities/commande.entity";
 import { ProductDetail } from "src/details/entities/detail.entity";
+import { Picture } from "src/pictures/entities/picture.entity";
 import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
@@ -7,14 +9,14 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, OneT
 export class Mark {
     @PrimaryGeneratedColumn()
     id: number;
-    @Column( 'text',{name:"fullName", nullable:true})
+    @Column( 'text',{name:"name", nullable:true})
     name: string;
     @Column('text',{name:"description",nullable:true})
     description: string;
     @Column('text',{name:"status",nullable:true})
     status: boolean;
-    @Column('text',{name:"image",nullable:true})
-    image: string;
+    @Column('text',{name:"picture",nullable:true})
+    picture: string;
     @Column('date',{name:"createAt",nullable:true})
     createAt:Date;
     @Column('date',{name:"update",nullable:true})
@@ -27,8 +29,18 @@ export class Mark {
     isActive:boolean
     //relation
    
-    @OneToMany(() => ProductDetail, (productDetail: ProductDetail) => productDetail.markId,{cascade:true})
-    productDetail: ProductDetail[];
+    // @OneToMany(() => ProductDetail, (productDetail: ProductDetail) => productDetail.markId,{cascade:true})
+    // productDetail: ProductDetail[];
+    @ManyToOne(() => ProductDetail, (productDetail: ProductDetail) => productDetail.markId)
+    @JoinColumn({ name: "deatilId" })
+    deatilId: number | null; 
+
+    @OneToMany(() => Picture, ( pictures:Picture) =>  pictures.markId,{cascade:true})
+    pictures: Picture[];
+    
+ 
+    // @OneToMany(() => Commande, (commande: Commande) => commande.markId,{cascade:true})
+    // commande: Commande[];
 
 
 

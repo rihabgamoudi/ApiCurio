@@ -35,6 +35,11 @@ export class TvaController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.tvaService.remove(+id);
+    return this.tvaService.remove(id);
   }
+  @Post('delete-multiple')
+  removeMultiple(@Body('') toDelete: number[]) {
+ 
+    return this.tvaService.removeMultiple(toDelete);
+  } 
 }

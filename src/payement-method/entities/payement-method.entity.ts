@@ -30,5 +30,6 @@ this.createAt=new Date()
 updateATDate() :void{
     this.updateAt= new Date()
 }
+
 }
 

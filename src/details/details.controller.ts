@@ -14,23 +14,30 @@ export class DetailsController {
     return this.detailsService.create(createDetailDto);
   }
 
-  @Get()
+  @Get('details-list')
   findAll() {
     return this.detailsService.findAll();
   }
-
+ 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.detailsService.findOne(+id);
+    return this.detailsService.findOneById(+id);
   }
-
+ 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDetailDto: UpdateDetailDto) {
-    return this.detailsService.update(+id, updateDetailDto);
-  }
+  async updateProductDetail(@Param('id') id: number, @Body() updateDetailDto: UpdateDetailDto) {
+   // Remplacez cela par la méthode pour obtenir l'ID de l'utilisateur authentifié
+   let userId=1
+    return this.detailsService.update(id,userId, updateDetailDto,);
+  } 
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.detailsService.remove(+id);
+    return this.detailsService.remove(id);
+  }
+  @Post('delete-multiple')
+  removeMultiple(@Body('') toDelete: number[]) {
+ 
+    return this.detailsService.removeMultiple(toDelete);
   }
 }

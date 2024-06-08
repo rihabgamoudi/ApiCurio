@@ -1,14 +1,18 @@
+import { Commande } from "src/commande/entities/commande.entity";
 import { ProductDetail } from "src/details/entities/detail.entity";
 import { Tva } from "src/tva/entities/tva.entity";
-import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
 export class Price {
     @PrimaryGeneratedColumn()
     id: number;
+    @Column('text',{name:"name",nullable:true})
+    name: string;
     @Column('text',{name:"priceExcludingTax",nullable:true})
     priceExcludingTax: number;
+   
     @Column('text',{name:"priceTTC",nullable:true})
     priceTTC: number;
     @Column('text',{name:"retailPrice",nullable:true})
@@ -29,10 +33,10 @@ export class Price {
     @OneToMany(() => Tva, (productTva: Tva) => productTva.priceId,{cascade:true})
     productTvaproductTax: Tva[];
     //relation
-    @ManyToOne(() => ProductDetail, (productDetail: ProductDetail) => productDetail.id)
-    @JoinColumn({ name: "deatilId" })
-    deatilId: number | null;
- 
+   
+    @ManyToMany(() => ProductDetail, (productDetail: ProductDetail) => productDetail.priceId,{cascade:true})
+    productDetail: ProductDetail[];
+    
   
 
 @BeforeInsert()

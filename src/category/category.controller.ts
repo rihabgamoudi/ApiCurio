@@ -18,11 +18,11 @@ export class CategoryController {
   findAll() {
     return this.categoryService.findAll();
   } 
-
+ 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.categoryService.findOneById(+id);
-  }
+  } 
 
   @Patch(':id')
   async updateCategory(@Param('id') id: number, @Body() updateCategoryDto: UpdateCategoryDto) {
@@ -33,6 +33,13 @@ export class CategoryController {
  
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.categoryService.remove(+id);
+    return this.categoryService.remove(id);
   }
+  @Post('delete-multiple')
+  removeMultiple(@Body('') toDelete: number[]) {
+ 
+    return this.categoryService.removeMultiple(toDelete);
+  }
+
+  
 }
